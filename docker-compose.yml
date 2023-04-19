@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  api-service:
+    env_file:
+      - ./.env.local
+    container_name: api-service
+    build:
+      context: ./
+    restart: always
+    ports:
+      - 3001:3000

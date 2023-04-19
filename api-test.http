@@ -1,0 +1,5 @@
+### Health check
+GET http://localhost:3000/healthz HTTP/1.1
+
+### Message endpoint
+GET http://localhost:3000/message/word HTTP/1.1
