@@ -18,15 +18,20 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.32.1",
+    "sequelize-typescript": "^2.1.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.1",
     "@types/morgan": "^1.9.4",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.5.0",
     "@types/supertest": "^2.0.12",
+    "@types/validator": "^13.11.1",
     "dotenv-cli": "^7.2.1",
     "esbuild": "^0.17.17",
     "esbuild-register": "^3.4.2",
@@ -34,6 +39,7 @@
     "eslint-config-prettier": "^8.8.0",
     "jest": "^29.5.0",
     "nodemon": "^2.0.22",
+    "prettier": "^3.0.2",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"

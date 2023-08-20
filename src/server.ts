@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import "./database/connection";
+import errorHandler from "./middleware/errorHandler";
 
 export const createServer = () => {
   const app = express();
@@ -15,11 +17,11 @@ export const createServer = () => {
     return res.json({ ok: true, environment: process.env.NODE_ENV });
   });
 
-  
-
   app.get("/message/:name", (req, res) => {
     return res.json({ message: `hello ${req.params.name}` });
   });
+
+  app.use(errorHandler);
 
   return app;
 };
