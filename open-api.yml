@@ -1,0 +1,92 @@
+openapi: 3.0.0
+servers:
+  - description: Local Dev
+    url: http://localhost:3000
+info:
+  title: Travel API
+  description: Travel API tutorial
+  version: "1.0.0"
+  contact: 
+    email: alex@alex.com
+  license:
+    name: Apache 2.0
+    url: "https://www.apache.org/licenses/LICENSE-2.0.htm"
+tags:
+  - name: Travels
+    description: Travels endpoints
+
+paths:
+  /v1/travels:
+    get:
+      tags:
+        - Travels
+      summary: List travels
+      operationId: listTravels
+      description: An endpoint to list Travels
+      responses:
+        "200":
+          description: Travels
+          content:
+            application/json:
+              schema:
+                required:
+                  - travels
+                properties:
+                  travels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Travel"
+        default:
+          $ref: "#/components/responses/DefaultError"
+
+components:
+  responses:
+    DefaultError:
+      description: Default error response
+      content:
+        application/json:
+          schema: 
+            $ref: "#/components/schemas/DefaultError"
+  schemas:
+    DefaultError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              example: There was an error processing your request
+            code:
+              type: string
+              example: ERR-NF
+    Travel:
+      type: object
+      required:
+        - id
+        - name
+        - slug
+        - number_of_days
+      properties:
+        id:
+          type: string
+          example: 274f7f22-7285-4bd1-ac45-e646cfa3ad67
+        name:
+          type: string
+          example: My Cool Travel
+        description:
+          type: string
+          example: This is my cool Travel
+        slug:
+          type: string
+          example: my-cool-travel
+        number_of_days:
+          type: number
+          example: 3
+
+
+
