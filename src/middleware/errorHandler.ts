@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import ApiError from "../errors/ApiError";
 
 export default function errorHandler(
   error: Error,
@@ -6,16 +7,29 @@ export default function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  if (res.headersSent || process.env.NODE_ENV === "development") {
+  if (res.headersSent) {
     return next(error);
   }
 
-  console.log(error);
+  if (error instanceof ApiError) {
+    return res.status(error.status).json({
+      error: {
+        message: error.message,
+        code: error.code,
+      },
+    });
+  }
 
-  res.status(400).json({
-    error: {
-      message:
-        error.message || "An error occurred. Please view logs for more details",
-    },
-  });
+  if (process.env.NODE_ENV === "development") {
+    next(error);
+  } else {
+    console.log(error);
+    res.status(400).json({
+      error: {
+        message:
+          error.message ||
+          "An error occurred. Please view logs for more details",
+      },
+    });
+  }
 }

@@ -14,3 +14,18 @@ export const listTravels = async (
     next(error);
   }
 };
+
+export const getTravel = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const travelResource = new TravelResource(
+      await Travel.findByPk(req.params.id)
+    );
+    res.status(200).json(travelResource.item());
+  } catch (error: any) {
+    next(error);
+  }
+};

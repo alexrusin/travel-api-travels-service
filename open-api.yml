@@ -38,7 +38,33 @@ paths:
                       $ref: "#/components/schemas/Travel"
         default:
           $ref: "#/components/responses/DefaultError"
-
+  /v1/travels/{travelId}:
+    get:
+      tags:
+        - Travels
+      summary: Get Travel
+      operationId: getTravel
+      description: An endpoint to get a travel by id
+      parameters:
+        - in: path
+          name: travelId
+          schema:
+            type: string
+          required: true
+          description: UUID of the travel to get
+      responses:
+        "200":
+          description: Travel
+          content:
+            application/json:
+              schema:
+                required:
+                  - travel
+                properties:
+                  travel:
+                    $ref: "#/components/schemas/Travel"
+        default:
+          $ref: "#/components/responses/DefaultError"
 components:
   responses:
     DefaultError:
