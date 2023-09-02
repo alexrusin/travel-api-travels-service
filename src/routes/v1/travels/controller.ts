@@ -24,7 +24,7 @@ export const getTravel = async (
     const travelResource = new TravelResource(
       await Travel.findByPk(req.params.id)
     );
-    res.status(200).json(travelResource.item());
+    res.status(200).json({ travel: travelResource.item() });
   } catch (error: any) {
     next(error);
   }
