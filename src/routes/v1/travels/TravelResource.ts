@@ -1,4 +1,5 @@
 import Travel from "../../../database/models/Travel";
+import ApiError from "../../../errors/ApiError";
 
 type TravelEntity = {
   id: string;
@@ -12,7 +13,12 @@ class TravelResource {
   #instance: Travel;
   constructor(travel: Travel | null) {
     if (!travel) {
-      throw new Error("Entity not found");
+      throw new ApiError({
+        name: "NOT_FOUND_ERROR",
+        message: "Entity not found",
+        status: 404,
+        code: "ERR_NF",
+      });
     }
     this.#instance = travel;
   }
