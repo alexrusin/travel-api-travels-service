@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Tour from "../../../database/models/Tour";
-import TourResource from "./TourResource";
+import TourResource from "../../../resources/TourResource";
 
 export const listTours = async (
   req: Request,

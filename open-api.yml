@@ -150,6 +150,7 @@ components:
         - name
         - slug
         - number_of_days
+        - tours
       properties:
         id:
           type: string
@@ -166,6 +167,10 @@ components:
         number_of_days:
           type: number
           example: 3
+        tours:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tour"
     Tour:
       type: object
       required:
