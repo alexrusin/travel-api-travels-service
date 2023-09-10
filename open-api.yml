@@ -65,6 +65,59 @@ paths:
                     $ref: "#/components/schemas/Travel"
         default:
           $ref: "#/components/responses/DefaultError"
+
+  /v1/tours:
+    get:
+      tags:
+        - Tours
+      summary: List Tours
+      operationId: listTours
+      description: An endpoint to list Tours
+      responses:
+        "200":
+          description: Tours
+          content:
+            application/json:
+              schema:
+                required:
+                  - tours
+                properties:
+                  tours:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Tour"
+        default:
+          $ref: "#/components/responses/DefaultError"
+
+  /v1/tours/{tourId}:
+    get:
+      tags:
+        - Tours
+      summary: Get Tour
+      operationId: getTour
+      description: An endpoint to get a Tour by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID of the Tour to get
+      responses:
+        "200":
+          description: Tour
+          content:
+            application/json:
+              schema:
+                required:
+                  - tour
+                properties:
+                  tour:
+                    $ref: "#/components/schemas/Tour"
+        default:
+          $ref: "#/components/responses/DefaultError"
+
+          
 components:
   responses:
     DefaultError:
@@ -97,6 +150,7 @@ components:
         - name
         - slug
         - number_of_days
+        - tours
       properties:
         id:
           type: string
@@ -113,6 +167,44 @@ components:
         number_of_days:
           type: number
           example: 3
+        tours:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tour"
+    Tour:
+      type: object
+      required:
+        - id
+        - travel_id
+        - name
+        - starting_date
+        - ending_date
+        - price
+      properties:
+        id:
+          type: string
+          example: c85946c0-df6d-4898-a9e4-6bf01b8dad43
+        travel_id:
+          type: string
+          example: 274f7f22-7285-4bd1-ac45-e646cfa3ad67
+        name:
+          type: string
+          example: Awesome Tour
+        starting_date:
+          type: string
+          format: date
+          example: "2023-04-08"
+        ending_date:
+          type: string
+          format: date
+          example: "2023-04-09"
+        price:
+          type: number
+          example: 23.99
+
+
+
+
 
 
 
