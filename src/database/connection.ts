@@ -1,12 +1,13 @@
 import { Sequelize } from "sequelize-typescript";
+import EnvManager from "../EnvManager";
 
 const sequelize = new Sequelize({
-  database: process.env.DB_NAME,
+  database: EnvManager.getDbName(),
   dialect: "mysql",
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
+  username: EnvManager.getDbUsername(),
+  password: EnvManager.getDbPassword(),
+  host: EnvManager.getDbHost(),
+  port: EnvManager.getDbPort(),
   models: [__dirname + "/models"],
 });
 
