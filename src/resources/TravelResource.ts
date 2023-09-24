@@ -1,17 +1,7 @@
-import Travel from "../database/models/Travel";
 import BaseResource from "./BaseResource";
-import TourResource, { TourEntity } from "./TourResource";
+import TourResource from "./TourResource";
 
-export type TravelEntity = {
-  id: string;
-  name: string;
-  description?: string;
-  slug: string;
-  number_of_days: number;
-  tours: Array<TourEntity>;
-};
-
-class TravelResource extends BaseResource<Travel, TravelEntity>() {
+class TravelResource extends BaseResource<TravelAttributes, TravelEntity>() {
   item() {
     const travelResource: TravelEntity = {
       id: this.instance.id,

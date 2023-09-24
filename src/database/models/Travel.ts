@@ -15,7 +15,7 @@ import Tour from "./Tour";
   tableName: "travels",
   modelName: "Travel",
 })
-class Travel extends Model {
+class Travel extends Model<TravelAttributes> {
   @Column({
     primaryKey: true,
     type: DataType.UUID,

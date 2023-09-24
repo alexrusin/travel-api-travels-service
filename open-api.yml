@@ -98,7 +98,7 @@ paths:
       description: An endpoint to get a Tour by id
       parameters:
         - in: path
-          name: id
+          name: tourId
           schema:
             type: string
           required: true

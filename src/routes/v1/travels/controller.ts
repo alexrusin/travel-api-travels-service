@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Travel from "../../../database/models/Travel";
 import TravelResource from "../../../resources/TravelResource";
 import Tour from "../../../database/models/Tour";
+import TravelRepository from "../../../repositories/TravelRepository";
 
 export const listTravels = async (
   req: Request,
@@ -9,11 +10,8 @@ export const listTravels = async (
   next: NextFunction
 ) => {
   try {
-    const travels = TravelResource.collection(
-      await Travel.findAll({
-        include: Tour,
-      })
-    );
+    const repository = new TravelRepository();
+    const travels = TravelResource.collection(await repository.getAll());
     res.status(200).json({ travels });
   } catch (error: any) {
     next(error);
@@ -26,10 +24,9 @@ export const getTravel = async (
   next: NextFunction
 ) => {
   try {
+    const repository = new TravelRepository();
     const travelResource = new TravelResource(
-      await Travel.findByPk(req.params.id, {
-        include: Tour,
-      })
+      await repository.getById(req.params.id)
     );
     res.status(200).json({ travel: travelResource.item() });
   } catch (error: any) {
