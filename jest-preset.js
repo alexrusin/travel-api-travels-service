@@ -8,6 +8,7 @@ module.exports = {
     "<rootDir>/test/__fixtures__",
     "<rootDir>/node_modules",
     "<rootDir>/dist",
+    "<rootDir>/src/__tests__/__fixtures__",
   ],
   preset: "ts-jest",
 };
