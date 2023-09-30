@@ -23,7 +23,10 @@ export default function errorHandler(
   if (process.env.NODE_ENV === "development") {
     next(error);
   } else {
-    console.log(error);
+    if (process.env.NODE_ENV !== "test") {
+      console.log(error);
+    }
+
     res.status(400).json({
       error: {
         message:
