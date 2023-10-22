@@ -22,6 +22,10 @@ export default abstract class BaseRepository<A> {
     return this.modelClass.findByPk(id, options);
   }
 
+  create(body: Record<string, any>): Promise<A> {
+    return this.modelClass.create(body);
+  }
+
   protected getDefaultOrderBy() {
     return {
       order: [["created_at", "DESC"]],

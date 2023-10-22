@@ -33,3 +33,19 @@ export const getTravel = async (
     next(error);
   }
 };
+
+export const createTravel = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const repository = new TravelRepository();
+    const travelResource = new TravelResource(
+      await repository.create(req.body)
+    );
+    res.status(201).json({ travel: travelResource.item() });
+  } catch (error) {
+    next(error);
+  }
+};
