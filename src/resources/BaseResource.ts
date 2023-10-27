@@ -25,6 +25,9 @@ function BaseResource<A, E>() {
     }
 
     static collection(entities: Array<A>): Array<E> {
+      if (!entities) {
+        return [];
+      }
       return entities.map((instance) => {
         const resource = new this(instance);
         return resource.item();
