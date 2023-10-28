@@ -24,9 +24,9 @@ function BaseResource<A, E>() {
       });
     }
 
-    static collection(entities: Array<A>): Array<E> {
+    static collection(entities: Array<A>): Array<E> | undefined {
       if (!entities) {
-        return [];
+        return;
       }
       return entities.map((instance) => {
         const resource = new this(instance);
