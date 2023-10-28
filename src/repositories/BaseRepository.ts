@@ -26,6 +26,14 @@ export default abstract class BaseRepository<A> {
     return this.modelClass.create(body);
   }
 
+  async update(id: string, body: Record<string, any>): Promise<A> {
+    const instance = await this.modelClass.findByPk(id);
+    if (!instance) {
+      return instance;
+    }
+    return instance.update(body);
+  }
+
   protected getDefaultOrderBy() {
     return {
       order: [["created_at", "DESC"]],

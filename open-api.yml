@@ -20,7 +20,7 @@ paths:
     get:
       tags:
         - Travels
-      summary: List travels
+      summary: List Travels
       operationId: listTravels
       description: An endpoint to list Travels
       responses:
@@ -41,11 +41,11 @@ paths:
     post:
       tags:
         - Travels
-      summary: Create a travel
+      summary: Create Travel
       operationId: createTravel
-      description: An endpoint to create a travel
+      description: An endpoint to create Travel
       requestBody:
-        description: Payload request to create a travel
+        description: Payload request to create Travel
         required: true
         $ref: "#/components/requestBodies/CreateTravelBody"
       responses:
@@ -62,7 +62,7 @@ paths:
         default:
           $ref: "#/components/responses/DefaultError"
 
-  /v1/travels/{travelId}:
+  /v1/travels/{id}:
     get:
       tags:
         - Travels
@@ -71,7 +71,7 @@ paths:
       description: An endpoint to get a travel by id
       parameters:
         - in: path
-          name: travelId
+          name: id
           schema:
             type: string
           required: true
@@ -89,6 +89,37 @@ paths:
                     $ref: "#/components/schemas/Travel"
         default:
           $ref: "#/components/responses/DefaultError"
+    put:
+      tags:
+        - Travels
+      summary: Update Travel
+      operationId: updateTravel
+      description: An endpoint to update Travel
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID of the travel to update
+      requestBody:
+        description: Payload request to update Travel
+        required: true
+        $ref: "#/components/requestBodies/UpdateTravelBody"
+      responses:
+        "200":
+          description: Travel
+          content:
+            application/json:
+              schema:
+                required:
+                  - travel
+                properties:
+                  travel:
+                    $ref: "#/components/schemas/Travel"
+        default:
+          $ref: "#/components/responses/DefaultError"
+      
 
   /v1/tours:
     get:
@@ -244,6 +275,24 @@ components:
             required:
               - name
               - number_of_days
+            properties:
+              name:
+                type: string
+                example: My Cool Travel
+              description:
+                type: string
+                example: This is my cool Travel
+              number_of_days:
+                type: number
+                example: 3
+              is_public:
+                type: boolean
+                example: true
+    UpdateTravelBody:
+      content:
+        application/json:
+          schema:
+            type: object
             properties:
               name:
                 type: string
