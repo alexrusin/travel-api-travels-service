@@ -65,3 +65,18 @@ export const updateTravel = async (
     next(error);
   }
 };
+
+export const deleteTravel = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const repository = new TravelRepository();
+    await repository.delete(req.params.id);
+
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};

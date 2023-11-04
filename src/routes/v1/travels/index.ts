@@ -4,6 +4,7 @@ import {
   getTravel,
   createTravel,
   updateTravel,
+  deleteTravel,
 } from "./controller";
 import validateRequest from "../../../middleware/validateRequest";
 import {
@@ -17,5 +18,6 @@ travels.get("/", listTravels);
 travels.get("/:id", getTravel);
 travels.post("/", validateRequest(createTravelSchema), createTravel);
 travels.put("/:id", validateRequest(updateTravelSchema), updateTravel);
+travels.delete("/:id", deleteTravel);
 
 export default travels;

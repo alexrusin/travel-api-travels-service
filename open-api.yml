@@ -119,7 +119,24 @@ paths:
                     $ref: "#/components/schemas/Travel"
         default:
           $ref: "#/components/responses/DefaultError"
-      
+    delete:
+      tags:
+        - Travels
+      summary: Delete Travel
+      operationId: deleteTravel
+      description: An endpoint to delete a travel
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID of the travel to get
+      responses:
+        "204":
+          description: Travel successfully deleted
+        default:
+          $ref: "#/components/responses/DefaultError"  
 
   /v1/tours:
     get:
