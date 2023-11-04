@@ -1,4 +1,5 @@
 import { ModelStatic } from "sequelize";
+import ApiError from "../errors/ApiError";
 
 export default abstract class BaseRepository<A> {
   modelClass: ModelStatic<any>;
@@ -32,6 +33,19 @@ export default abstract class BaseRepository<A> {
       return instance;
     }
     return instance.update(body);
+  }
+
+  async delete(id: string): Promise<A> {
+    const instance = await this.modelClass.findByPk(id);
+    if (!instance) {
+      throw new ApiError({
+        name: "NOT_FOUND_ERROR",
+        message: "Entity not found",
+        status: 404,
+        code: "ERR_NF",
+      });
+    }
+    return instance.destroy();
   }
 
   protected getDefaultOrderBy() {
