@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import Tour from "../../../database/models/Tour";
 import TourResource from "../../../resources/TourResource";
 import TourRepository from "../../../repositories/TourRepository";
 
@@ -10,7 +9,11 @@ export const listTours = async (
 ) => {
   try {
     const repository = new TourRepository();
-    const tours = TourResource.collection(await repository.getAll());
+    const tours = TourResource.collection(
+      await repository.getAll({
+        sortBy: req.query.sort_by,
+      })
+    );
     res.status(200).json({ tours });
   } catch (error: any) {
     next(error);

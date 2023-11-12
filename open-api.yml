@@ -23,6 +23,13 @@ paths:
       summary: List Travels
       operationId: listTravels
       description: An endpoint to list Travels
+      parameters:
+        - in: query
+          name: sort_by
+          schema:
+            type: string
+          required: false
+          description: Sort by query parameter. F.e. *number_of_days-asc*
       responses:
         "200":
           description: Travels
@@ -145,6 +152,13 @@ paths:
       summary: List Tours
       operationId: listTours
       description: An endpoint to list Tours
+      parameters:
+        - in: query
+          name: sort_by
+          schema:
+            type: string
+          required: false
+          description: Sort by query parameter. F.e. *price-asc*
       responses:
         "200":
           description: Tours

@@ -3,6 +3,13 @@ import Travel from "../database/models/Travel";
 import BaseRepository from "./BaseRepository";
 
 export default class TravelRepository extends BaseRepository<TravelAttributes> {
+  protected allowedSortByFields = [
+    "name",
+    "number_of_days",
+    "created_at",
+    "updated_at",
+  ];
+
   constructor() {
     super(Travel);
   }

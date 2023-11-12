@@ -3,19 +3,16 @@ import ApiError from "../errors/ApiError";
 
 export default abstract class BaseRepository<A> {
   modelClass: ModelStatic<any>;
+  protected allowedSortByFields: Array<string> = ["created_at"];
 
   constructor(modelClass: ModelStatic<any>) {
     this.modelClass = modelClass;
   }
 
   getAll(options: Record<string, any> = {}): Promise<Array<A>> {
-    if (!options.hasOwnProperty("order")) {
-      options = {
-        ...options,
-        ...this.getDefaultOrderBy(),
-      };
-    }
-
+    const orderBy = this.getOrderBy(options.sortBy);
+    delete options.sortBy;
+    options.order = orderBy;
     return this.modelClass.findAll(options);
   }
 
@@ -48,9 +45,23 @@ export default abstract class BaseRepository<A> {
     return instance.destroy();
   }
 
-  protected getDefaultOrderBy() {
-    return {
-      order: [["created_at", "DESC"]],
-    };
+  protected getOrderBy(sortBy: string | undefined): Array<[string, string]> {
+    const orderBy: Array<[string, string]> = [["created_at", "DESC"]];
+
+    if (!sortBy) {
+      return orderBy;
+    }
+
+    const parts = sortBy.split("-");
+
+    if (!this.allowedSortByFields.includes(parts[0])) {
+      return orderBy;
+    }
+
+    if (!parts[1] || !["asc", "desc"].includes(parts[1].toLowerCase())) {
+      return orderBy;
+    }
+
+    return [[parts[0], parts[1].toLowerCase()]];
   }
 }
