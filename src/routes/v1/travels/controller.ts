@@ -12,6 +12,7 @@ export const listTravels = async (
     const travels = TravelResource.collection(
       await repository.getAll({
         sortBy: req.query.sort_by,
+        filterBy: req.query.filter_by,
       })
     );
     res.status(200).json({ travels });

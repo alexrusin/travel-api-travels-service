@@ -9,6 +9,13 @@ export default class TourRepository extends BaseRepository<TourAttributes> {
     "ending_date",
   ];
 
+  protected allowedFilterByFields = [
+    "name",
+    "price",
+    "starting_date",
+    "ending_date",
+  ];
+
   constructor() {
     super(Tour);
   }

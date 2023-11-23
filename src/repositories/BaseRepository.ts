@@ -1,9 +1,12 @@
 import { ModelStatic } from "sequelize";
+import { parse } from "liqe";
 import ApiError from "../errors/ApiError";
+import getSequelizeWhereClause from "../utils/getSequelizeWhereClause";
 
 export default abstract class BaseRepository<A> {
   modelClass: ModelStatic<any>;
   protected allowedSortByFields: Array<string> = ["created_at"];
+  protected allowedFilterByFields: Array<string> = [];
 
   constructor(modelClass: ModelStatic<any>) {
     this.modelClass = modelClass;
@@ -13,6 +16,13 @@ export default abstract class BaseRepository<A> {
     const orderBy = this.getOrderBy(options.sortBy);
     delete options.sortBy;
     options.order = orderBy;
+
+    if (options.filterBy) {
+      const filterBy = this.getFilterBy(options.filterBy);
+      delete options.filterBy;
+      options.where = filterBy;
+    }
+
     return this.modelClass.findAll(options);
   }
 
@@ -63,5 +73,21 @@ export default abstract class BaseRepository<A> {
     }
 
     return [[parts[0], parts[1].toLowerCase()]];
+  }
+
+  protected getFilterBy(filterBy: string): Record<string, any> {
+    try {
+      return getSequelizeWhereClause(
+        parse(filterBy),
+        this.allowedFilterByFields
+      );
+    } catch (error: any) {
+      throw new ApiError({
+        name: "FILTER_BY_ERROR",
+        message: error.message,
+        status: 400,
+        code: "ERR_FTB",
+      });
+    }
   }
 }

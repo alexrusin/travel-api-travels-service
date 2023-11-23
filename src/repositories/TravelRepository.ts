@@ -10,6 +10,8 @@ export default class TravelRepository extends BaseRepository<TravelAttributes> {
     "updated_at",
   ];
 
+  protected allowedFilterByFields = ["name", "number_of_days"];
+
   constructor() {
     super(Travel);
   }
@@ -17,7 +19,6 @@ export default class TravelRepository extends BaseRepository<TravelAttributes> {
   getAll(options: Record<string, any> = {}) {
     const opts = {
       ...options,
-      ...this.getIncludes(),
     };
     return super.getAll(opts);
   }

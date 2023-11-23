@@ -1,8 +1,9 @@
 type ErrorName =
   | "NOT_FOUND_ERROR"
   | "CONNECTION_ERROR"
-  | "METHOD_NOT_IMPLEMENTED";
-type ErrorCode = "ERR_NF" | "ERR_REMOTE" | "NOT_IMPL" | "ERR_VALID";
+  | "METHOD_NOT_IMPLEMENTED"
+  | "FILTER_BY_ERROR";
+type ErrorCode = "ERR_NF" | "ERR_REMOTE" | "NOT_IMPL" | "ERR_VALID" | "ERR_FTB";
 
 type ValidationError = {
   error: {
@@ -27,7 +28,7 @@ type TravelEntity = {
   description?: string;
   slug: string;
   number_of_days: number;
-  tours: Array<TourEntity>;
+  tours: Array<TourEntity> | undefined;
 };
 
 interface TourAttributes {
