@@ -12,6 +12,7 @@ export const listTours = async (
     const tours = TourResource.collection(
       await repository.getAll({
         sortBy: req.query.sort_by,
+        filterBy: req.query.filter_by,
       })
     );
     res.status(200).json({ tours });

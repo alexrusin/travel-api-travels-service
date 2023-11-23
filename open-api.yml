@@ -30,6 +30,12 @@ paths:
             type: string
           required: false
           description: Sort by query parameter. F.e. *number_of_days-asc*
+        - in: query
+          name: filter_by
+          schema:
+            type: string
+          required: false
+          description: Filter by query parameter. F.e. *name:"My Cool Travel"*
       responses:
         "200":
           description: Travels
@@ -159,6 +165,12 @@ paths:
             type: string
           required: false
           description: Sort by query parameter. F.e. *price-asc*
+        - in: query
+          name: filter_by
+          schema:
+            type: string
+          required: false
+          description: Filter by query parameter. F.e. *price:<30*
       responses:
         "200":
           description: Tours
